@@ -4,11 +4,13 @@ import "./SearchResult.css";
 interface ISearchResultProps {
   imgSrc: string;
   login: string;
+  onClickAutocomplete: () => void;
 }
 
 function SearchResult({
   imgSrc,
   login,
+  onClickAutocomplete,
 }: ISearchResultProps) {
   return (
     <li className="suggestion-item">
@@ -27,6 +29,7 @@ function SearchResult({
             type="button"
             title="Select"
             className="suggestion-item-action-button"
+            onClick={onClickAutocomplete}
           >
             <svg fill="currentColor" viewBox="0 0 24 24">
               <path d="M18.984 6.984h2.016v6h-15.188l3.609 3.609-1.406 1.406-6-6 6-6 1.406 1.406-3.609 3.609h13.172v-4.031z" />

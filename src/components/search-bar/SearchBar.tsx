@@ -29,6 +29,11 @@ function SearchBar() {
     fetchResults(e.target.value);
   }
 
+  function fillInputHandler(login: string) {
+    fetchResults(login);
+    setInput(login);
+  }
+
   return (
     <div className="searchbar-container">
       <div className="search-bar">
@@ -47,6 +52,7 @@ function SearchBar() {
             key={result.id}
             imgSrc={result.avatar_url}
             login={result.login}
+            onClickAutocomplete={() => fillInputHandler(result.login)}
           />
         ))}
         </ul>
