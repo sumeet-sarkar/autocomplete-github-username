@@ -48,7 +48,11 @@ function SearchBar() {
     }
   }
 
-  function fillInputHandler(login: string) {
+  function fillInputHandler(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    login: string
+  ) {
+    e.preventDefault();
     fetchResults(login);
     setInput(login);
   }
@@ -76,7 +80,10 @@ function SearchBar() {
               key={result.id}
               imgSrc={result.avatar_url}
               login={result.login}
-              onClickAutocomplete={() => fillInputHandler(result.login)}
+              htmlURL={result.html_url}
+              onClickAutocomplete={(
+                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+              ) => fillInputHandler(e, result.login)}
             />
           ))}
           </ul>

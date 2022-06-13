@@ -4,17 +4,19 @@ import "./SearchResult.css";
 interface ISearchResultProps {
   imgSrc: string;
   login: string;
-  onClickAutocomplete: () => void;
+  htmlURL: string;
+  onClickAutocomplete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 function SearchResult({
   imgSrc,
   login,
+  htmlURL,
   onClickAutocomplete,
 }: ISearchResultProps) {
   return (
     <li className="suggestion-item">
-      <div className="suggestion-item-container">
+      <a href={htmlURL} className="suggestion-item-container">
         <div className="suggestion-item-img">
           <object data={noImage} type="image/png/jpeg">
             <img src={imgSrc} alt="avatar" height="40" width="40" />
@@ -36,7 +38,7 @@ function SearchResult({
             </svg>
           </button>
         </div>
-      </div>
+      </a>
     </li>
   );
 }
