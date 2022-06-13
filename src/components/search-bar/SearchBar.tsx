@@ -89,6 +89,28 @@ function SearchBar() {
     }
   }
 
+  function getSearchResultsElement() {
+    if (results?.items.length === 0) {
+      return <p className="suggestion-list-no-result">No Results</p>;
+    }
+    return (
+      <ul className="suggestion-list">
+        {results?.items.map(result => (
+          <SearchResult
+            key={result.id}
+            imgSrc={result.avatar_url}
+            login={result.login}
+            htmlURL={result.url}
+            searchInput={input}
+            onClickAutocomplete={(
+              e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+            ) => fillInputHandler(e, result.login)}
+          />
+        ))}
+      </ul>
+    );
+  }
+
   React.useEffect(function() {
     inputElementRef.current?.focus();
   }, [])
@@ -111,20 +133,7 @@ function SearchBar() {
       </div>
       {showResults && (
         <div className="searchbar-suggestions">
-          <ul className="suggestion-list">
-          {results?.items.map(result => (
-            <SearchResult
-              key={result.id}
-              imgSrc={result.avatar_url}
-              login={result.login}
-              htmlURL={result.html_url}
-              searchInput={input}
-              onClickAutocomplete={(
-                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-              ) => fillInputHandler(e, result.login)}
-            />
-          ))}
-          </ul>
+          {getSearchResultsElement()}
         </div>
       )}
     </div>
