@@ -9,6 +9,7 @@ import "./SearchBar.css";
 function SearchBar() {
   const [input, setInput] = React.useState("");
   const [results, setResults] = React.useState<IUser | null>(null);
+  const [showResults, setShowResults] = React.useState(false);
 
   const fetchResults = async (input: string) => {
     if (input === "") {
@@ -34,13 +35,30 @@ function SearchBar() {
     fetchResultsDebounced(e.target.value);
   }
 
+  function onFocusHandler(e: React.FocusEvent<HTMLDivElement, Element>) {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setShowResults(true);
+      fetchResults(input);
+    }
+  }
+
+  function onBlurHandler(e: React.FocusEvent<HTMLDivElement, Element>) {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setShowResults(false);
+    }
+  }
+
   function fillInputHandler(login: string) {
     fetchResults(login);
     setInput(login);
   }
 
   return (
-    <div className="searchbar-container">
+    <div
+      className="searchbar-container"
+      onFocus={onFocusHandler}
+      onBlur={onBlurHandler}
+    >
       <div className="search-bar">
         <img
           src={searchIcon}
@@ -50,18 +68,20 @@ function SearchBar() {
         />
         <input className="search-bar-input" type="search" value={input} onChange={onChangeHandler}/>
       </div>
-      <div className="searchbar-suggestions">
-        <ul className="suggestion-list">
-        {results?.items.map(result => (
-          <SearchResult
-            key={result.id}
-            imgSrc={result.avatar_url}
-            login={result.login}
-            onClickAutocomplete={() => fillInputHandler(result.login)}
-          />
-        ))}
-        </ul>
-      </div>
+      {showResults && (
+        <div className="searchbar-suggestions">
+          <ul className="suggestion-list">
+          {results?.items.map(result => (
+            <SearchResult
+              key={result.id}
+              imgSrc={result.avatar_url}
+              login={result.login}
+              onClickAutocomplete={() => fillInputHandler(result.login)}
+            />
+          ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
