@@ -11,6 +11,7 @@ function SearchBar() {
   const [results, setResults] = React.useState<IUser | null>(null);
   const [showResults, setShowResults] = React.useState(false);
   const indexNumber = React.useRef(0);
+  const inputElementRef = React.useRef<HTMLInputElement>(null);
 
   const fetchResults = async (input: string) => {
     if (input === "") {
@@ -88,6 +89,10 @@ function SearchBar() {
     }
   }
 
+  React.useEffect(function() {
+    inputElementRef.current?.focus();
+  }, [])
+
   return (
     <div
       className="searchbar-container"
@@ -102,7 +107,7 @@ function SearchBar() {
           className="search-icon"
           title="Search"
         />
-        <input className="search-bar-input" type="search" value={input} onChange={onChangeHandler} onKeyUp={() => fetchResultsDebounced(input)}/>
+        <input className="search-bar-input" type="search" value={input} onChange={onChangeHandler} onKeyUp={() => fetchResultsDebounced(input)} ref={inputElementRef} />
       </div>
       {showResults && (
         <div className="searchbar-suggestions">
