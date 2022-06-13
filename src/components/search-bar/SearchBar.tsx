@@ -8,6 +8,7 @@ import "./SearchBar.css";
 
 function SearchBar() {
   const [input, setInput] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const [results, setResults] = React.useState<IUser | null>(null);
   const [showResults, setShowResults] = React.useState(false);
   const indexNumber = React.useRef(0);
@@ -15,10 +16,12 @@ function SearchBar() {
 
   const fetchResults = async (input: string) => {
     if (input === "") {
+      setLoading(false);
       setResults(null);
       return;
     }
     try {
+      setLoading(true);
       const res = await getUsers(input);
       const newResults = { ...(res.data as IUser) };
       newResults.items = newResults.items.slice(0, 5);
@@ -26,6 +29,8 @@ function SearchBar() {
       indexNumber.current = 0;
     } catch (err) {
       console.error("can not fetch users. ", err);
+    } finally {
+      setLoading(false);
     }
   };
   const fetchResultsDebounced = React.useCallback(
@@ -34,6 +39,7 @@ function SearchBar() {
   );
 
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+    setLoading(true);
     setInput(e.target.value);
     indexNumber.current = 0;
   }
@@ -90,6 +96,9 @@ function SearchBar() {
   }
 
   function getSearchResultsElement() {
+    if (loading) {
+      return <p className="suggestion-list-no-result">Loading</p>;
+    }
     if (results?.items.length === 0) {
       return <p className="suggestion-list-no-result">No Results</p>;
     }
