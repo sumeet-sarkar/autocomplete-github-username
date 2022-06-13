@@ -1,8 +1,8 @@
 import React from "react";
-import { getUsers, IUser } from "../../api/getUsers";
-import searchIcon from "../../assets/search.svg";
-import debounce from "../../utils/debounce";
 import SearchResult from "../search-result/SearchResult";
+import searchIcon from "../../assets/search.svg";
+import { getUsers, IUser } from "../../api/getUsers";
+import { debounce } from "../../utils/debounce";
 import { CONFIG } from "../../utils/config";
 
 import "./SearchBar.css";
@@ -74,22 +74,22 @@ function SearchBar() {
   }
 
   function onkeydownHandler(e: React.KeyboardEvent<HTMLDivElement>) {
-    const acceptableKeys = ['ArrowDown', 'ArrowUp'];
+    const acceptableKeys = ["ArrowDown", "ArrowUp"];
     if (!acceptableKeys.includes(e.code)) {
       return;
     }
 
     function getUpdatedIndex(keyCode: string, index: number) {
-      if (keyCode === 'ArrowDown') {
+      if (keyCode === "ArrowDown") {
         index++;
         if (index >= list!.length) {
           index = 0;
         }
       }
-      if (keyCode === 'ArrowUp') {      
+      if (keyCode === "ArrowUp") {
         index--;
         if (index < 0) {
-          index = list!.length - 1
+          index = list!.length - 1;
         }
       }
       return index;
@@ -111,7 +111,7 @@ function SearchBar() {
     }
     return (
       <ul className="suggestion-list">
-        {results?.items.map(result => (
+        {results?.items.map((result) => (
           <SearchResult
             key={result.id}
             imgSrc={result.avatar_url}
@@ -127,9 +127,9 @@ function SearchBar() {
     );
   }
 
-  React.useEffect(function() {
+  React.useEffect(function () {
     inputElementRef.current?.focus();
-  }, [])
+  }, []);
 
   return (
     <div
@@ -145,12 +145,17 @@ function SearchBar() {
           className="search-icon"
           title="Search"
         />
-        <input className="search-bar-input" type="search" value={input} onChange={onChangeHandler} onKeyUp={() => fetchResultsDebounced(input)} ref={inputElementRef} />
+        <input
+          className="search-bar-input"
+          type="search"
+          value={input}
+          onChange={onChangeHandler}
+          onKeyUp={() => fetchResultsDebounced(input)}
+          ref={inputElementRef}
+        />
       </div>
       {showResults && (
-        <div className="searchbar-suggestions">
-          {getSearchResultsElement()}
-        </div>
+        <div className="searchbar-suggestions">{getSearchResultsElement()}</div>
       )}
     </div>
   );

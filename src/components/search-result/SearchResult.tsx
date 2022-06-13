@@ -6,7 +6,9 @@ interface ISearchResultProps {
   login: string;
   htmlURL: string;
   searchInput: string;
-  onClickAutocomplete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClickAutocomplete: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
 }
 
 function SearchResult({
@@ -18,7 +20,9 @@ function SearchResult({
 }: ISearchResultProps) {
   return (
     <li
-      className={`suggestion-item ${searchInput === login ? 'suggestion-item-selected' : ''}`}
+      className={`suggestion-item ${
+        searchInput === login ? "suggestion-item-selected" : ""
+      }`}
     >
       <a href={htmlURL} className="suggestion-item-container">
         <div className="suggestion-item-img">
