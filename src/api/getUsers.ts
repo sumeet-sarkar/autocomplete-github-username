@@ -1,4 +1,4 @@
-import axios from "axios";
+import { githubClient } from "./githubClient";
 
 interface IUserItem {
   login: string;
@@ -29,10 +29,7 @@ export interface IUser {
 }
 
 export async function getUsers(query: string) {
-  const response = await axios.get("https://api.github.com/search/users", {
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-    },
+  const response = await githubClient.get("search/users", {
     params: {
       q: query,
     },
