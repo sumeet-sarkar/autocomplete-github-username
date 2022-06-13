@@ -42,7 +42,13 @@ function SearchBar() {
       </div>
       <div className="searchbar-suggestions">
         <ul className="suggestion-list">
-          <SearchResult />
+        {results?.items.map(result => (
+          <SearchResult
+            key={result.id}
+            imgSrc={result.avatar_url}
+            login={result.login}
+          />
+        ))}
         </ul>
       </div>
     </div>

@@ -1,17 +1,25 @@
 import noImage from "../../assets/no-image.png";
 import "./SearchResult.css";
 
-function SearchResult() {
+interface ISearchResultProps {
+  imgSrc: string;
+  login: string;
+}
+
+function SearchResult({
+  imgSrc,
+  login,
+}: ISearchResultProps) {
   return (
     <li className="suggestion-item">
       <div className="suggestion-item-container">
         <div className="suggestion-item-img">
           <object data={noImage} type="image/png/jpeg">
-            <img src={noImage} alt="avatar" height="40" width="40" />
+            <img src={imgSrc} alt="avatar" height="40" width="40" />
           </object>
         </div>
         <div className="suggestion-item-body">
-          <div className="suggestion-item-body-title">Username</div>
+          <div className="suggestion-item-body-title">{login}</div>
           <div className="suggestion-item-body-description">Information</div>
         </div>
         <div className="suggestion-item-action">
