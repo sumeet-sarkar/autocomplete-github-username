@@ -64,6 +64,7 @@ function SearchBar() {
     e.preventDefault();
     fetchResults(login);
     setInput(login);
+    inputElementRef.current?.focus();
   }
 
   function onkeydownHandler(e: React.KeyboardEvent<HTMLDivElement>) {
