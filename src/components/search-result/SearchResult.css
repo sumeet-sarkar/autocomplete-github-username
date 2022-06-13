@@ -1,0 +1,55 @@
+.suggestion-item {
+  cursor: pointer;
+  min-height: 40px;
+  padding: 8px;
+}
+
+.suggestion-item:hover {
+  background-color: #e0e0e0;
+}
+
+.suggestion-item-container {
+  display: flex;
+  align-items: center;
+  color: inherit;
+}
+
+.suggestion-item-img {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  font-size: 12px;
+}
+
+.suggestion-item-body {
+  width: 12rem;
+  margin-right: 8px;
+}
+
+.suggestion-item-body-title {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestion-item-body-description {
+  font-size: 0.85em;
+  max-width: 100%;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-item-action {
+  width: 1.75rem;
+  background: white;
+  border: 0;
+}
+
+.suggestion-item-action-button {
+  width: 100%;
+}

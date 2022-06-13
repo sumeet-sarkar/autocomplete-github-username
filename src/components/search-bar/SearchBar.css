@@ -1,0 +1,70 @@
+.App {
+  font-family: sans-serif;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.searchbar-container {
+  width: 20rem;
+  margin-top: 1rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
+  border: 1px solid #adaeb2;
+  border-radius: 48px;
+}
+
+.search-bar:hover {
+  box-shadow: 4px 4px 4px 4px #dfe1e5;
+  border: 0;
+}
+
+.search-icon {
+  height: 1.25rem;
+  margin: 0 1rem;
+}
+
+.search-bar-input {
+  width: 16rem;
+  border: 0;
+}
+
+.search-bar-input:focus-visible {
+  outline: 0;
+}
+
+.seach-bar-clear {
+  background: white;
+  border: 0;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.seach-bar-clear-img {
+  height: 1.5rem;
+}
+
+.searchbar-suggestions {
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 0 0 0px rgba(35, 38, 59, 0.1),
+    0 6px 16px -4px rgba(35, 38, 59, 0.15);
+  margin: 8px 0 0;
+  transition: opacity 0.2s ease-in, filter 0.2s ease-in;
+  max-height: 650px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.suggestion-list {
+  padding: 0;
+  margin: 0;
+}
