@@ -3,8 +3,11 @@ import { getUsers, IUser } from "../../api/getUsers";
 import searchIcon from "../../assets/search.svg";
 import debounce from "../../utils/debounce";
 import SearchResult from "../search-result/SearchResult";
+import { CONFIG } from "../../utils/config";
 
 import "./SearchBar.css";
+
+const { numberOfresultsToBeDisplayed, debounceTimeLimit } = CONFIG;
 
 function SearchBar() {
   const [input, setInput] = React.useState("");
@@ -24,7 +27,10 @@ function SearchBar() {
       setLoading(true);
       const res = await getUsers(input);
       const newResults = { ...(res.data as IUser) };
-      newResults.items = newResults.items.slice(0, 5);
+      newResults.items = newResults.items.slice(
+        0,
+        numberOfresultsToBeDisplayed
+      );
       setResults(newResults);
       indexNumber.current = 0;
     } catch (err) {
@@ -34,7 +40,7 @@ function SearchBar() {
     }
   };
   const fetchResultsDebounced = React.useCallback(
-    debounce(fetchResults, 1000),
+    debounce(fetchResults, debounceTimeLimit),
     []
   );
 
