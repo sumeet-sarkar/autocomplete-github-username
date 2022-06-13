@@ -10,6 +10,7 @@ function SearchBar() {
   const [input, setInput] = React.useState("");
   const [results, setResults] = React.useState<IUser | null>(null);
   const [showResults, setShowResults] = React.useState(false);
+  const indexNumber = React.useRef(0);
 
   const fetchResults = async (input: string) => {
     if (input === "") {
@@ -57,11 +58,41 @@ function SearchBar() {
     setInput(login);
   }
 
+  function onkeydownHandler(e: React.KeyboardEvent<HTMLDivElement>) {
+    const acceptableKeys = ['ArrowDown', 'ArrowUp'];
+    if (!acceptableKeys.includes(e.code)) {
+      return;
+    }
+
+    function getUpdatedIndex(keyCode: string, index: number) {
+      if (keyCode === 'ArrowDown') {
+        index++;
+        if (index >= list!.length) {
+          index = 0;
+        }
+      }
+      if (keyCode === 'ArrowUp') {      
+        index--;
+        if (index < 0) {
+          index = list!.length - 1
+        }
+      }
+      return index;
+    }
+
+    const list = [...results!.items];
+    indexNumber.current = getUpdatedIndex(e.code, indexNumber.current);
+    if (list![indexNumber.current]) {
+      setInput(list![indexNumber.current].login);
+    }
+  }
+
   return (
     <div
       className="searchbar-container"
       onFocus={onFocusHandler}
       onBlur={onBlurHandler}
+      onKeyDown={onkeydownHandler}
     >
       <div className="search-bar">
         <img
@@ -81,6 +112,7 @@ function SearchBar() {
               imgSrc={result.avatar_url}
               login={result.login}
               htmlURL={result.html_url}
+              searchInput={input}
               onClickAutocomplete={(
                 e: React.MouseEvent<HTMLButtonElement, MouseEvent>
               ) => fillInputHandler(e, result.login)}

@@ -5,6 +5,7 @@ interface ISearchResultProps {
   imgSrc: string;
   login: string;
   htmlURL: string;
+  searchInput: string;
   onClickAutocomplete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -12,10 +13,13 @@ function SearchResult({
   imgSrc,
   login,
   htmlURL,
+  searchInput,
   onClickAutocomplete,
 }: ISearchResultProps) {
   return (
-    <li className="suggestion-item">
+    <li
+      className={`suggestion-item ${searchInput === login ? 'suggestion-item-selected' : ''}`}
+    >
       <a href={htmlURL} className="suggestion-item-container">
         <div className="suggestion-item-img">
           <object data={noImage} type="image/png/jpeg">
