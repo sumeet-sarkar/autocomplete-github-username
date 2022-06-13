@@ -22,6 +22,7 @@ function SearchBar() {
       const newResults = { ...(res.data as IUser) };
       newResults.items = newResults.items.slice(0, 5);
       setResults(newResults);
+      indexNumber.current = 0;
     } catch (err) {
       console.error("can not fetch users. ", err);
     }
@@ -33,7 +34,7 @@ function SearchBar() {
 
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setInput(e.target.value);
-    fetchResultsDebounced(e.target.value);
+    indexNumber.current = 0;
   }
 
   function onFocusHandler(e: React.FocusEvent<HTMLDivElement, Element>) {
@@ -101,7 +102,7 @@ function SearchBar() {
           className="search-icon"
           title="Search"
         />
-        <input className="search-bar-input" type="search" value={input} onChange={onChangeHandler}/>
+        <input className="search-bar-input" type="search" value={input} onChange={onChangeHandler} onKeyUp={() => fetchResultsDebounced(input)}/>
       </div>
       {showResults && (
         <div className="searchbar-suggestions">
