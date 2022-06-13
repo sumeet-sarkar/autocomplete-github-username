@@ -1,6 +1,7 @@
 import React from "react";
 import { getUsers, IUser } from "../../api/getUsers";
 import searchIcon from "../../assets/search.svg";
+import debounce from "../../utils/debounce";
 import SearchResult from "../search-result/SearchResult";
 
 import "./SearchBar.css";
@@ -23,10 +24,14 @@ function SearchBar() {
       console.error("can not fetch users. ", err);
     }
   };
+  const fetchResultsDebounced = React.useCallback(
+    debounce(fetchResults, 1000),
+    []
+  );
 
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setInput(e.target.value);
-    fetchResults(e.target.value);
+    fetchResultsDebounced(e.target.value);
   }
 
   function fillInputHandler(login: string) {
